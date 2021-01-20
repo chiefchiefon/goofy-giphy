@@ -1,5 +1,6 @@
 package com.github.chiefchiefon.goofigiffy
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.github.chiefchiefon.goofigiffy.model.network.Data
 import com.github.chiefchiefon.goofigiffy.model.network.GiphyApiServiceImpl
 import com.github.chiefchiefon.goofigiffy.model.network.GiphyResponse
 import com.github.chiefchiefon.goofigiffy.view.GifsAdapter
@@ -39,7 +41,9 @@ class MainActivity : AppCompatActivity() {
             setBackgroundColor(currentHintTextColor)
         }
 
-        gifAdapter = GifsAdapter()
+        gifAdapter = GifsAdapter().apply {
+            clickListener = this@MainActivity::onItemClicked
+        }
         gifsListView.adapter = gifAdapter
 
         loadGifs()
@@ -48,6 +52,13 @@ class MainActivity : AppCompatActivity() {
             //status = statuses.giphs_loaded
             statusTV.visibility = View.INVISIBLE
         }
+    }
+
+    private fun onItemClicked(data: Data) {
+        val fullScreenIntent = Intent(this, FullScreenImageActivity::class.java).apply {
+            putExtra("url", data.images.downsized_medium.url)
+        }
+        startActivity(fullScreenIntent)
     }
 
     private fun setProgressVisibility(show: Boolean) {
