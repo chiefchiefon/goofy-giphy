@@ -63,16 +63,23 @@ class MainActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
+        /**
+         * in onSaveInstanceState we save imageDataList to outState Bundle.
+         * Here in onRestoreInstanceState we first check if imageDataList is not empty.
+         * Only then we proceed to the let block and reset imageDataList, submit it to gifAdapter and turnoff progress bar
+         */
         savedInstanceState.getParcelableArrayList<GifData>(IMAGE_DATA_KEY)?.takeIf { it.isNotEmpty() }?.let {
             imageDataList = it
             gifAdapter.submitList(it)
             setProgressVisibility(false)
         } ?: run {
+            /** if imageDataList is empty we load gifs from server */
             loadGifs()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        /** save imageDataList to outState Bundle  */
         outState.putParcelableArrayList(IMAGE_DATA_KEY, ArrayList(imageDataList))
         super.onSaveInstanceState(outState)
     }
