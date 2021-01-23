@@ -10,12 +10,12 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 //import com.bumptech.glide.request.transition.DrawableCrossFadeTransition
 import com.github.chiefchiefon.goofigiffy.R
-import com.github.chiefchiefon.goofigiffy.model.network.Data
+import com.github.chiefchiefon.goofigiffy.model.network.GifData
 
 class GifsAdapter: RecyclerView.Adapter<GifViewHolder>() {
 
-    var gifImages:List<Data> = emptyList()
-    var clickListener: ((Data) -> Unit)? = null
+    var gifImages:List<GifData> = emptyList()
+    var clickListener: ((GifData) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GifViewHolder {
         return GifViewHolder(
@@ -36,7 +36,7 @@ class GifsAdapter: RecyclerView.Adapter<GifViewHolder>() {
 
     override fun getItemCount() = gifImages.size
 
-    fun submitList(gifImages: List<Data>) {
+    fun submitList(gifImages: List<GifData>) {
         this.gifImages = gifImages
         notifyDataSetChanged()
     }

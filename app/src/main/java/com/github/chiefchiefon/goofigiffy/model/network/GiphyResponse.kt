@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class GiphyResponse(val data: List<Data>)
+data class GiphyResponse(val data: List<GifData>)
 
 /**
  * kotlinx documentation:
@@ -18,7 +18,7 @@ data class GiphyResponse(val data: List<Data>)
  */
 @Parcelize
 @Serializable
-data class Data(
+data class GifData(
     val id: String,
     val images: Image,
     val title: String
